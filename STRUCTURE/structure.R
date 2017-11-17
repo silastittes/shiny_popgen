@@ -94,8 +94,8 @@ run_files <- function(path, colours){
 
 names(wes_palettes)
 pal <- wes_palette("Zissou")
-structure_plot(get_qmat("~/Documents/courses/popgen/STRUCTURE/Results/burn10K_iter100K_run_11_f"),
-               colours = pal, list_pops = T)
+#structure_plot(get_qmat("~/Documents/courses/popgen/STRUCTURE/Results/burn10K_iter100K_run_11_f"),
+#               colours = pal, list_pops = T)
 
 run_files("PATH TO FOLDER", colours = pal)
 
