@@ -1,4 +1,4 @@
-Shiny app for teaching pop gen courses. 
+Shiny apps for pop gen courses. 
 ======================================
 
 Created by Silas Tittes and Scott Taylor, for the undergraduate Population Genetics course taught at University of Colorado at Boulder. 
@@ -83,6 +83,6 @@ FST/:
 Contribute
 ---------
 
-I would love to expand and improve these. Please submit pull requests, open issues, or email me with suggestions. 
+I would love to expand and improve these. Please submit pull requests and issues, or email me with suggestions. 
 silas(dot)tittes(at)gmail(dot)com
 
