@@ -42,7 +42,7 @@ Details
 * Coalescence
   * discrete_time_app.R
     * Discrete-time forward simulation of sampling alleles. Provides option to show trace of ancestry (useful to see if alleles coalesce in time of simulation).
- * continuous_coalescence_app.R
+  * continuous_coalescence_app.R
     * Create random geneologies and drop mutations along branches (number of mutations recorded in the small box along branches). Option to hide or show the sequence alignment and geneology (note columns are individuals). 
 
 * FST
