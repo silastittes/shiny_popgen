@@ -35,7 +35,6 @@ Details
 -------
 
 1. Drift
-
 ..* drift_app.R
 
 
@@ -43,7 +42,6 @@ Details
 
 
 2. Coalescence
-
 ..* discrete_time_app.R
 
 
@@ -55,19 +53,14 @@ Details
 ...Create random geneologies and drop mutations along branches (number of mutations recorded in the small box along branches). Option to hide or show the sequence alignment and geneology (note columns are individuals). 
 
 
-3. FST
-
-..* fst_app.R
-
-
-...Two deme visualization. Randomly samples alleles according to frequencies specified by user. Prints HS, HT, and FST. 
+* FST
+  * fst_app.R
+  * Two deme visualization. Randomly samples alleles according to frequencies specified by user. Prints HS, HT, and FST. 
 
 
-4. Selection
-
-..* haploid_selection_app.R
-
-...Shows change in allele frequency over time due to relative fitess of alleles.
+* Selection
+  * haploid_selection_app.R
+  * Shows change in allele frequency over time due to relative fitess of alleles.
 
 ..* diploid_selection_app.R
 
