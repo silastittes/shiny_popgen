@@ -1,7 +1,7 @@
 Shiny app for teaching pop gen courses. 
 ======================================
 
-Created by Silas Tittes and Scott Taylor, for undergraduate Population Genetics course taught at University of Colorado at Boulder. 
+Created by Silas Tittes and Scott Taylor, for the undergraduate Population Genetics course taught at University of Colorado at Boulder. 
  
 This repository consists of multiple sub-directories organized by topic. Each directory has at least one shiny app. Some have multiple. 
 
@@ -29,6 +29,56 @@ How to run apps
 To run an app, simply open in RStudio and click the "Run App" button. We prefer to use the "Run External" option (see image), which will open the app in your system's default web browser.
 
 ![shiny_pic](shiny_run_pic.png)
+
+
+Details
+-------
+
+*Drift/:
+
+	*drift_app.R
+		
+	...Two-allele drift only-model. Shows flucuations in allele frequency over discrete generations. Includes option of imposing a bottleneck (without population size recovery).
+
+
+*Coalescence/: 
+
+	*discrete_time_app.R
+
+	...Discrete-time forward simulation of sampling alleles. Provides option to show trace of ancestry (useful to see if alleles coalesce in time of simulation).
+
+	*continuous_coalescence_app.R
+	
+	...Create random geneologies and drop mutations along branches (number of mutations recorded in the small box along branches). Option to hide or show the sequence alignment and geneology (note columns are individuals). 
+
+
+FST/:
+	
+	*fst_app.R
+
+	...Two deme visualization. Randomly samples alleles according to frequencies specified by user. Prints HS, HT, and FST. 
+
+*Selection/:
+
+	*haploid_selection_app.R
+	
+	....Shows change in allele frequency over time due to relative fitess of alleles.
+
+	*diploid_selection_app.R
+
+	...Produces three plot types, Average fitness versus allele frequencey, change in allele frequency versus allele frequency, and change in allele frequeny over discrete generations.
+
+*STRUCTURE/:
+
+	*structure.R
+
+	...Not a shiny app, Make plots from STUCTURE output.
+
+*Quant-Gen:/
+
+	*additive_alleles_app.R
+
+	...A really simple demonstration on how additive alleles contribute to quantitative traits, and rapidly approximate a normal distirbution.
 
 Contribute
 ---------
