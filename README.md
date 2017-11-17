@@ -36,7 +36,7 @@ Details
 
 * Drift
   * drift_app.R
-    * Two-allele drift only-model. Shows flucuations in allele frequency over discrete generations. Includes option of imposing a bottleneck (without population size recovery).
+    * Two-allele drift-only model. Shows flucuations in allele frequency over discrete generations. Includes option of imposing a bottleneck (without population size recovery).
 
 
 * Coalescence
