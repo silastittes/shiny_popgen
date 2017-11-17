@@ -58,7 +58,7 @@ Details
 
 
 * STRUCTURE
- * structure.R
+  * structure.R
     * Not a shiny app, Make plots from STUCTURE output.
 
 * Quant-Gen
