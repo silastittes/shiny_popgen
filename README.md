@@ -55,7 +55,8 @@ Details
 
 * FST
   * fst_app.R
-  * Two deme visualization. Randomly samples alleles according to frequencies specified by user. Prints HS, HT, and FST. 
+
+... Two deme visualization. Randomly samples alleles according to frequencies specified by user. Prints HS, HT, and FST. 
 
 
 * Selection
