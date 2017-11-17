@@ -54,7 +54,7 @@ Details
   * haploid_selection_app.R
     * Shows change in allele frequency over time due to relative fitness of alleles.
   * diploid_selection_app.R
-    * Produces three plot types, average fitness versus allele frequency, change in allele frequency versus allele frequency, and change in allele frequency over discrete generations.
+    * Produces three plot types, average fitness versus allele frequency, change in allele frequency versus allele frequency, and allele frequency over discrete generations.
 
 
 * STRUCTURE
