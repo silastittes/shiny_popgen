@@ -34,24 +34,16 @@ To run an app, simply open in RStudio and click the "Run App" button. We prefer 
 Details
 -------
 
-1. Drift
-..* drift_app.R
+* Drift
+  * drift_app.R
+    * Two-allele drift only-model. Shows flucuations in allele frequency over discrete generations. Includes option of imposing a bottleneck (without population size recovery).
 
 
-...Two-allele drift only-model. Shows flucuations in allele frequency over discrete generations. Includes option of imposing a bottleneck (without population size recovery).
-
-
-2. Coalescence
-..* discrete_time_app.R
-
-
-...Discrete-time forward simulation of sampling alleles. Provides option to show trace of ancestry (useful to see if alleles coalesce in time of simulation).
-
-
-..* continuous_coalescence_app.R
-
-...Create random geneologies and drop mutations along branches (number of mutations recorded in the small box along branches). Option to hide or show the sequence alignment and geneology (note columns are individuals). 
-
+* Coalescence
+  * discrete_time_app.R
+    * Discrete-time forward simulation of sampling alleles. Provides option to show trace of ancestry (useful to see if alleles coalesce in time of simulation).
+ * continuous_coalescence_app.R
+    * Create random geneologies and drop mutations along branches (number of mutations recorded in the small box along branches). Option to hide or show the sequence alignment and geneology (note columns are individuals). 
 
 * FST
   * fst_app.R
@@ -60,27 +52,18 @@ Details
 
 * Selection
   * haploid_selection_app.R
-  * Shows change in allele frequency over time due to relative fitess of alleles.
-
-..* diploid_selection_app.R
-
-...Produces three plot types, Average fitness versus allele frequencey, change in allele frequency versus allele frequency, and change in allele frequeny over discrete generations.
+    * Shows change in allele frequency over time due to relative fitess of alleles.
+  * diploid_selection_app.R
+    * Produces three plot types, Average fitness versus allele frequencey, change in allele frequency versus allele frequency, and change in allele frequeny over discrete generations.
 
 
-5. STRUCTURE
-..* structure.R
+* STRUCTURE
+ * structure.R
+    * Not a shiny app, Make plots from STUCTURE output.
 
-
-...Not a shiny app, Make plots from STUCTURE output.
-
-
-6. Quant-Gen
-..* additive_alleles_app.R
-
-
-...A really simple demonstration on how additive alleles contribute to quantitative traits, and rapidly approximate a normal distirbution.
-
-
+* Quant-Gen
+  * additive_alleles_app.R
+    * A really simple demonstration on how additive alleles contribute to quantitative traits, and rapidly approximate a normal distirbution.
 
 Contribute
 ---------
