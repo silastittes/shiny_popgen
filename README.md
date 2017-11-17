@@ -36,14 +36,14 @@ Details
 
 * Drift
   * drift_app.R
-    * Two-allele drift-only model. Shows flucuations in allele frequency over discrete generations. Includes option of imposing a bottleneck (without population size recovery).
+    * Two-allele drift-only model. Shows fluctuations in allele frequency over discrete generations. Includes option of imposing a bottleneck (without population size recovery).
 
 
 * Coalescence
   * discrete_time_app.R
     * Discrete-time forward simulation of sampling alleles. Provides option to show trace of ancestry (useful to see if alleles coalesce in time of simulation).
   * continuous_coalescence_app.R
-    * Create random geneologies and drop mutations along branches (number of mutations recorded in the small box along branches). Option to hide or show the sequence alignment and geneology (note columns are individuals). 
+    * Create random genealogies and drop mutations along branches (number of mutations recorded in the small box along branches). Option to hide or show the sequence alignment and genealogy (note columns are individuals). 
 
 * FST
   * fst_app.R
@@ -52,9 +52,9 @@ Details
 
 * Selection
   * haploid_selection_app.R
-    * Shows change in allele frequency over time due to relative fitess of alleles.
+    * Shows change in allele frequency over time due to relative fitness of alleles.
   * diploid_selection_app.R
-    * Produces three plot types, Average fitness versus allele frequencey, change in allele frequency versus allele frequency, and change in allele frequeny over discrete generations.
+    * Produces three plot types, average fitness versus allele frequency, change in allele frequency versus allele frequency, and change in allele frequency over discrete generations.
 
 
 * STRUCTURE
@@ -63,7 +63,7 @@ Details
 
 * Quant-Gen
   * additive_alleles_app.R
-    * A really simple demonstration on how additive alleles contribute to quantitative traits, and rapidly approximate a normal distirbution.
+    * A really simple demonstration on how additive alleles contribute to quantitative traits, and rapidly approximate a normal distribution.
 
 Contribute
 ---------
