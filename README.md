@@ -34,14 +34,14 @@ To run an app, simply open in RStudio and click the "Run App" button. We prefer 
 Details
 -------
 
--Drift/:
+1. Drift/:
 
 ..*drift_app.R
 		
 ...Two-allele drift only-model. Shows flucuations in allele frequency over discrete generations. Includes option of imposing a bottleneck (without population size recovery).
 
 
--Coalescence/: 
+2. Coalescence/: 
 
 ..*discrete_time_app.R
 
@@ -52,7 +52,7 @@ Details
 ...Create random geneologies and drop mutations along branches (number of mutations recorded in the small box along branches). Option to hide or show the sequence alignment and geneology (note columns are individuals). 
 
 
--FST/:
+3. FST/:
 	
 ..*fst_app.R
 
@@ -68,13 +68,13 @@ Details
 
 ...Produces three plot types, Average fitness versus allele frequencey, change in allele frequency versus allele frequency, and change in allele frequeny over discrete generations.
 
--STRUCTURE/:
+4. STRUCTURE/:
 
 ..*structure.R
 
 ...Not a shiny app, Make plots from STUCTURE output.
 
--Quant-Gen:/
+5. Quant-Gen:/
 
 ..*additive_alleles_app.R
 
