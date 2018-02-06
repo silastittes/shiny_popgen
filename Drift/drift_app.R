@@ -6,15 +6,15 @@
 #
 #    http://shiny.rstudio.com/
 #
-
+library(shiny)
 library(tidyverse)
 
-drift <- function(N, gen, reps, bottle_t = 0, bottle_N = N){
+drift <- function(N, p0, gen, reps, bottle_t = 0, bottle_N = N){
   two_n <- 2*N
   out <- data.frame(
     replicate(n = reps, expr = {
       sims <- rep(NA, gen)
-      sims[1] <- N / two_n
+      sims[1] <- p0
       for(i in 2:gen){
         sims[i] <- rbinom(n = 1, size = two_n, prob = sims[i-1]) /
           two_n
@@ -40,6 +40,8 @@ ui <- pageWithSidebar(
     
     numericInput(inputId = "N", label = "Population size (N) (1-1e5)", value = 100, 
                  min = 1, max = 1e5, step = 10),
+    numericInput(inputId = "p0", label = "Initial allele freq", value = .5, 
+                 min = 0, max = 1, step = .01),
     numericInput(inputId = "gen", label = "Generations (1-1e4)", value = 100, 
                  min = 1, max = 1e4, step = 10),
     numericInput(inputId = "bottle_t", label = "Bottleneck time", value = 100, 
@@ -51,7 +53,7 @@ ui <- pageWithSidebar(
     actionButton("goButton", "GO"),
     #plotOutput(outputId = "freq"),
     downloadButton(outputId = 'drift_out.csv', label = 'Download')
-    ), 
+  ), 
   mainPanel =  mainPanel(
     plotOutput(outputId = 'freq')
   )
@@ -65,13 +67,14 @@ server <- function(input, output){
     
     #parameters
     N = input$N
+    p0 = input$p0
     gen = input$gen
     reps = input$reps
     bottle_t = input$bottle_t
     bottle_N = input$bottle_N
     
     #package data for plotting
-    return(drift(N, gen, reps, bottle_t, bottle_N))
+    return(drift(N, p0, gen, reps, bottle_t, bottle_N))
   })
   
   
