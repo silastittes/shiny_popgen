@@ -140,15 +140,17 @@ plot_coal <- function(tree){
   
   mny <- -max(tree$branch_lengths)*.04
   
+  par(las = 1)
   par(mar=c(0, 4, 1, 0))
   par(mfrow=c(2,1))
+  
   #my_asp <- 2
   plot(NA, NA, xlim=c(1, max(tree$nod_pos)), 
        ylim = c(mny, max(tree$branch_lengths)),
        axes = F, xlab = "", ylab = "")
   axis(side = 2)
-  
-  abline(h = unique(tree$branch_lengths), lty = 2, col = "grey", lwd = 0.5)
+  mtext(text = "T", side = 2, line = 3, las = 1)
+  abline(h = unique(tree$branch_lengths), lty = 2, col = "grey", lwd = 0.25)
   
   #rect(xleft = 1*buff, ybottom = mny*(buff+1), 
   #     xright = max(tree$nod_pos)*(buff+1), ytop = max(tree$branch_lengths)*(buff+1),
