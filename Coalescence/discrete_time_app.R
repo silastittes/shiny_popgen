@@ -71,7 +71,13 @@ ui <- fluidPage(pageWithSidebar(
     
     checkboxInput("checkbox", label = "show coalescence", value = TRUE),
     
-    actionButton("goButton", "GO")
+    actionButton("goButton", "GO"),
+    
+    helpText(
+      a("More apps and source code", 
+        target="_blank", cex = 0.5,href="https://github.com/silastittes/shiny_popgen"
+      )
+    )
     
   ), 
   

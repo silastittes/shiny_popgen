@@ -312,7 +312,7 @@ ui <- fluidPage(
    sidebarLayout(
       sidebarPanel(
         
-         sliderInput("n", "number of samples",
+         sliderInput("n", "Number of samples",
                      min = 2, max = 50,
                      value = 8, step = 1),
          
@@ -335,15 +335,20 @@ ui <- fluidPage(
                                   label = strong("Show alignment"),
                                   value = TRUE)),
      
-         actionButton("goButton", "GO")
+         actionButton("goButton", "GO"),
          
+         helpText(
+           a("More apps and source code", 
+             target="_blank", cex = 0.5,href="https://github.com/silastittes/shiny_popgen"
+           )
+         )
       ),
-      
-      # Show a plot of the generated distribution
+
       mainPanel(
         
           column(11, align="center",
                  plotOutput("distPlot")
+
 
         )
       )
