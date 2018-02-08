@@ -140,12 +140,15 @@ plot_coal <- function(tree){
   
   mny <- -max(tree$branch_lengths)*.04
   
-  par(mar=c(0, 0, 0, 0))
+  par(mar=c(0, 4, 1, 0))
   par(mfrow=c(2,1))
   #my_asp <- 2
   plot(NA, NA, xlim=c(1, max(tree$nod_pos)), 
        ylim = c(mny, max(tree$branch_lengths)),
        axes = F, xlab = "", ylab = "")
+  axis(side = 2)
+  
+  abline(h = unique(tree$branch_lengths), lty = 2, col = "grey", lwd = 0.5)
   
   #rect(xleft = 1*buff, ybottom = mny*(buff+1), 
   #     xright = max(tree$nod_pos)*(buff+1), ytop = max(tree$branch_lengths)*(buff+1),
@@ -181,9 +184,9 @@ plot_coal <- function(tree){
   )
   
   
-  mx_nodes <- length(tree$branch_lengths)
-  text(tree$nod_pos[mx_nodes] * 0.85, tree$branch_lengths[mx_nodes], 
-       paste0("T = ",round(tree$branch_lengths[mx_nodes],2)))
+  #mx_nodes <- length(tree$branch_lengths)
+  #text(tree$nod_pos[mx_nodes] * 0.85, tree$branch_lengths[mx_nodes], 
+  #     paste0("T = ",round(tree$branch_lengths[mx_nodes],2)))
   #points(tree$nod_pos[mx_nodes], tree$branch_lengths[mx_nodes], pch = 19)
 }
 
@@ -274,7 +277,7 @@ plot_aln <- function(tree, aln){
   
   if(!is.null(sz)){
     if(sz[2] > 0){
-      par(mar=c(0, 0, 0, 0))
+      #par(mar=c(0, 0, 0, 0))
       plot(NA, NA, xlim = c(-marg, sz[1]+marg), ylim = c(sz[2], 0),
            axes = F, xlab = "", ylab = "")
       
