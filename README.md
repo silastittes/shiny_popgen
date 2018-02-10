@@ -67,9 +67,20 @@ Details
   * additive_alleles_app.R
     * A really simple demonstration on how additive alleles contribute to quantitative traits, and rapidly approximate a normal distribution.
 
+
 Contribute
 ---------
 
 I would love to expand and improve these. Please submit pull requests and issues, or email me with suggestions. 
 silas(dot)tittes(at)gmail(dot)com
+
+
+Acknoledgments
+--------------
+
+Big thanks for contributions from:
+- ![Liz Scordato](http://www.scordatolab.com/)
+- ![Tanja Pyhäjärvi](http://www.oulu.fi/pyhajarvilab/research)
+- ![Yaniv Brandvain](https://cbs.umn.edu/contacts/yaniv-brandvain)
+- \<Your name here?\>
 
