@@ -55,6 +55,8 @@ Details
     * Shows change in allele frequency over time due to relative fitness of alleles.
   * diploid_selection_app.R
     * Produces three plot types, average fitness versus allele frequency, change in allele frequency versus allele frequency, and allele frequency over discrete generations.
+  * dipoloid_finite_app.R.
+    * Traces allele frequencies over discrete generations, where relative fitness of genotypes varies. Like diploid_selection_app.R, but with finite population size. Provides the option to download data, which could be useful for answering questions about fixation probabilities. 
 
 
 * STRUCTURE
