@@ -133,7 +133,7 @@ r_coal <- function(n_pop, theta = 2){
   return(tree)
 }
 
-plot_coal <- function(tree){
+plot_coal <- function(tree, node = F){
   ell_col <- rgb(30, 144, 255, 25, 
                  maxColorValue = 255)
   ell_col <- "white"
@@ -185,11 +185,17 @@ plot_coal <- function(tree){
     })
   )
   
-  
-  #mx_nodes <- length(tree$branch_lengths)
-  #text(tree$nod_pos[mx_nodes] * 0.85, tree$branch_lengths[mx_nodes], 
-  #     paste0("T = ",round(tree$branch_lengths[mx_nodes],2)))
-  #points(tree$nod_pos[mx_nodes], tree$branch_lengths[mx_nodes], pch = 19)
+  if(node){
+    node_show <- tree$nod_pos[tree$branch_lengths > 0]
+    branch_show <- tree$branch_lengths[tree$branch_lengths > 0]
+    points(node_show, 
+           branch_show, 
+           pch = 15, col = "white", cex = 4.5)
+    
+    
+    text(node_show, branch_show, 
+         round(branch_show,2))
+  }
 }
 
 ###################
@@ -223,11 +229,11 @@ paint_mutants <- function(tree, viz = F, theta = 2){
         if(viz){
           points((tree$nod_pos[c_node] + tree$nod_pos[c_dots[1]])/2, 
                  (tree$branch_lengths[c_node] + tree$branch_lengths[c_dots[1]])/2, 
-                 bg = "white", pch = 22, cex = 1.75)
+                 bg = "black", pch = 22, cex = 1.75)
           
           text((tree$nod_pos[c_node] + tree$nod_pos[c_dots[1]])/2, 
                (tree$branch_lengths[c_node] + tree$branch_lengths[c_dots[1]])/2, 
-               n_muts[k], cex = 0.8)
+               n_muts[k], cex = 1, col = "white")
         }
         all_dots <- rep(NA, length(tree$nodes))
         x <- c_dots[1]
@@ -334,7 +340,11 @@ ui <- fluidPage(
             isolate(checkboxInput(inputId = "aln",
                                   label = strong("Show alignment"),
                                   value = TRUE)),
-     
+         
+           isolate(checkboxInput(inputId = "nodes",
+                                 label = strong("Show node ages"),
+                                 value = TRUE)),
+       
          actionButton("goButton", "GO"),
          
          helpText(
@@ -374,21 +384,12 @@ server <- function(input, output) {
      
      par(mfrow=c(2,1))
      
-     if(input$tree){
-        plot_coal(data_out$tree)
-      }
+     if (input$tree) plot_coal(data_out$tree, node = input$nodes)
       
+     aln <- paint_mutants(data_out$tree, data_out$theta, viz = input$mutations)
      
-      if(input$mutations){
-        aln <- paint_mutants(data_out$tree, data_out$theta, viz = T)
-      } else {
-        aln <- paint_mutants(data_out$tree, data_out$theta, viz = F)
-      }
-     
+      if (input$aln) plot_aln(data_out$tree, aln)
       
-      if(input$aln){
-      plot_aln(data_out$tree, aln)
-      }
       
    })
 }
