@@ -81,6 +81,6 @@ Acknoledgments
 Big thanks for contributions from:
 - [Liz Scordato](http://www.scordatolab.com/)
 - [Tanja Pyhäjärvi](http://www.oulu.fi/pyhajarvilab/research)
-- [Yaniv Brandvain](https://cbs.umn.edu/contacts/yaniv-brandvain)
+- [Yaniv Brandvain](https://brandvainlab.wordpress.com/)
 - \<Your name here?\>
 
