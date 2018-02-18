@@ -75,7 +75,7 @@ I would love to expand and improve these. Please submit pull requests and issues
 silas(dot)tittes(at)gmail(dot)com
 
 
-Acknoledgments
+Acknowledgments
 --------------
 
 Big thanks for contributions from:
