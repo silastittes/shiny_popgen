@@ -84,7 +84,7 @@ server <- function(input, output){
       ggplot() +
       geom_line(aes(x = generation, y = freq, group = sim, colour = sim), 
                 alpha = 0.9) +
-      geom_hline(yintercept = input$p0, lty = 2) +
+      geom_hline(yintercept = data_out$freq[1], lty = 2) +
       ylim(0,1) +
       xlab("Generation (t)") +
       ylab(expression(f[A](t))) +
