@@ -56,8 +56,9 @@ Details
   * diploid_selection_app.R
     * Produces three plot types, average fitness versus allele frequency, change in allele frequency versus allele frequency, and allele frequency over discrete generations.
   * dipoloid_finite_app.R.
-    * Traces allele frequencies over discrete generations, where relative fitness of genotypes varies. Like diploid_selection_app.R, but with finite population size. Provides the option to download data, which could be useful for answering questions about fixation probabilities. 
-
+    * Traces allele frequencies over discrete generations, where relative fitness of genotypes varies. Like diploid_selection_app.R, but with finite population size. Provides the option to download data, which could be useful for answering questions about fixation probabilities.
+  * linked_selection_app.R
+    * Compares the effects of background and linked selection on genetic diversity as a function of recombination rate. Based on Chapter 9 of Graham Coop's excellent [popgen-notes](https://github.com/cooplab/popgen-notes).
 
 * STRUCTURE
   * structure.R
