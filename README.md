@@ -76,6 +76,26 @@ I would love to expand and improve these. Please submit pull requests and issues
 silas(dot)tittes(at)gmail(dot)com
 
 
+More resources
+----------
+
+Graham Coop's excellent [popgen-notes](https://github.com/cooplab/popgen-notes)
+
+[CJ Battey's DriftR](https://cjbattey.shinyapps.io/driftR/)
+
+[CJ Battey's AdaptR](https://cjbattey.shinyapps.io/adaptR/)
+
+[CJ Battey's LDsim](https://cjbattey.shinyapps.io/LDsim/)
+
+[Chris Muir's Shiny Apps](https://github.com/cdmuir/evolution-shiny)
+
+[Kent Holsinger's Shiny Apps](https://kholsinger.github.io/PopGen-Shiny/)
+
+[Liam Revell's Shiny Apps](http://www.phytools.org/PopGen/)
+
+[Sally Otto's Shiny Apps](https://shiney.zoology.ubc.ca/otto/DiploidSelection/)
+
+
 Acknowledgments
 --------------
 
