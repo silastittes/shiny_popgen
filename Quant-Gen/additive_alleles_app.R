@@ -21,7 +21,7 @@ pheno.dist <- function(n.loci, allele.types) {
     
     type <- i * allele.types[1] +
       (n.alleles - i) * allele.types[2]
-    class.types <- c(class.types,
+    class.types <- c(class.types, 
                      type) #add to storage
   }
   return(list(class.types = class.types,
