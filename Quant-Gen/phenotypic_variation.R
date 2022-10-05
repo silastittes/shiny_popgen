@@ -42,7 +42,7 @@ pheno_dist <- function(n_individuals, n_loci, allele_types, v_env) {
 
 ui <- fluidPage(pageWithSidebar( 
   
-  headerPanel = headerPanel("Additive alleles"),
+  headerPanel = headerPanel("Phenotypic variation"),
   
   sidebarPanel(
     
