@@ -13,7 +13,7 @@ library(dplyr)
 library(patchwork)
 theme_set(theme_classic(15))
 
-pheno_dist <- function(n_loci, allele_types, v_env) {
+pheno_dist <- function(n_individuals, n_loci, allele_types, v_env) {
   n_alleles <- 2 * n_loci #2 alleles for each locus
   class_counts <- choose(n_alleles, 0:n_alleles)
   # turn counts into proportions
@@ -22,11 +22,11 @@ pheno_dist <- function(n_loci, allele_types, v_env) {
   class_types <- (0:n_alleles) * allele_types[1] + 
                  (n_alleles - (0:n_alleles)) * allele_types[2]
   
-  additive_phenotype <- rep(class_types, class_counts) 
-  if(length(additive_phenotype) < 2){
-    phenotype <- rnorm(n=1e3, mean = 0, sd = v_env)
+  additive_phenotype <- sample(class_types, size = n_individuals, prob = class_counts, replace = T)
+  if(length(n_loci) < 1){
+    phenotype <- rnorm(n=n_individuals, mean = 0, sd = v_env)
   } else {
-    phenotype <- rnorm(n=length(additive_phenotype), mean = additive_phenotype, sd = v_env)  
+    phenotype <- rnorm(n=n_individuals, mean = additive_phenotype, sd = v_env)  
   }
   
   
@@ -46,6 +46,8 @@ ui <- fluidPage(pageWithSidebar(
   
   sidebarPanel(
     
+    sliderInput(inputId = "N", label = "Number of individuals", value = 100, 
+                min = 1, max = 500, step = 10),
     sliderInput(inputId = "n", label = "Number of independent loci", value = 1, 
                 min = 0, max = 14, step = 1),
     sliderInput(inputId = "A", label = "Phenotypic contribution of A alleles", value = 10, 
@@ -65,7 +67,7 @@ ui <- fluidPage(pageWithSidebar(
 server <- function(input, output){
   
   output$viz <- renderPlot({
-    out <- pheno_dist(input$n, c(input$A, input$a), input$e)
+    out <- pheno_dist(input$N, input$n, c(input$A, input$a), input$e)
     p1 <- ggplot(data = out) +
       geom_histogram(aes(x=additive_phenotype), binwidth = 1) +
       ylab("Frequency") +
