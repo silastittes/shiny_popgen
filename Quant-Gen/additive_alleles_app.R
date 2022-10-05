@@ -15,8 +15,7 @@ theme_set(theme_classic(15))
 
 pheno_dist <- function(n_loci, allele_types, v_env) {
   n_alleles <- 2 * n_loci #2 alleles for each locus
-  class_counts <- choose(n_alleles,
-                         0:n_alleles)
+  class_counts <- choose(n_alleles, 0:n_alleles)
   # turn counts into proportions
   class_freqs <- class_counts/sum(class_counts)
   
@@ -48,7 +47,7 @@ ui <- fluidPage(pageWithSidebar(
   sidebarPanel(
     
     sliderInput(inputId = "n", label = "Number of independent loci", value = 1, 
-                min = 0, max = 15, step = 1),
+                min = 0, max = 14, step = 1),
     sliderInput(inputId = "A", label = "Phenotypic contribution of A alleles", value = 10, 
                 min = 0, max = 10, step = 1),
     sliderInput(inputId = "a", label = "Phenotypic contribution of a alleles", value = 0, 
