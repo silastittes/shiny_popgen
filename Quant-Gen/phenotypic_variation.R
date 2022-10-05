@@ -49,7 +49,7 @@ ui <- fluidPage(pageWithSidebar(
     sliderInput(inputId = "N", label = "Number of individuals", value = 100, 
                 min = 1, max = 500, step = 10),
     sliderInput(inputId = "n", label = "Number of independent loci", value = 1, 
-                min = 0, max = 14, step = 1),
+                min = 0, max = 50, step = 1),
     sliderInput(inputId = "A", label = "Phenotypic contribution of A alleles", value = 10, 
                 min = 0, max = 10, step = 1),
     sliderInput(inputId = "a", label = "Phenotypic contribution of a alleles", value = 0, 
