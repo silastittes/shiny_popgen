@@ -69,11 +69,11 @@ server <- function(input, output){
   output$viz <- renderPlot({
     out <- pheno_dist(input$N, input$n, c(input$A, input$a), input$e)
     p1 <- ggplot(data = out) +
-      geom_histogram(aes(x=additive_phenotype, y=..density..)) +
+      geom_histogram(aes(x=additive_phenotype)) +
       ylab("Frequency") +
       xlab("Additive Phenotype")
     p2 <- ggplot(data = out) +
-      geom_histogram(aes(x=phenotype, y=..density..)) +
+      geom_histogram(aes(x=phenotype)) +
       ylab("Frequency") +
       xlab("Phenotype")
     p1 + p2 + plot_layout(ncol = 1)
