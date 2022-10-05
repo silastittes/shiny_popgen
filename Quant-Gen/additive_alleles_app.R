@@ -24,7 +24,12 @@ pheno_dist <- function(n_loci, allele_types, v_env) {
                  (n_alleles - (0:n_alleles)) * allele_types[2]
   
   additive_phenotype <- rep(class_types, class_counts) 
-  phenotype <- rnorm(n=length(additive_phenotype), mean = additive_phenotype, sd = v_env)
+  if(length(additive_phenotype) < 2){
+    phenotype <- rnorm(n=1e3, mean = 0, sd = v_env)
+  } else {
+    phenotype <- rnorm(n=length(additive_phenotype), mean = additive_phenotype, sd = v_env)  
+  }
+  
   
   return(
     tibble(
@@ -49,7 +54,7 @@ ui <- fluidPage(pageWithSidebar(
     sliderInput(inputId = "a", label = "Phenotypic contribution of a alleles", value = 0, 
                 min = 0, max = 10, step = 1),
     sliderInput(inputId = "e", label = "Environmental contribution to phenotype variance", value = 0, 
-                min = 0, max = 20, step = .5)
+                min = 0, max = 20, step = .2)
   ), 
   mainPanel =  mainPanel(
     plotOutput(outputId = 'viz')
