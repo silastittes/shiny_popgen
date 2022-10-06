@@ -71,11 +71,15 @@ server <- function(input, output){
     ggplot(data = out) +
       geom_histogram(aes(x=value)) +
       ylab("Frequency") +
-      xlab("Phenotype") +
+      xlab("Trait value") +
       facet_wrap(
         ~trait, ncol = 1, 
         scales = "free_y",
-        labeller=as_labeller(c("additive_phenotype" = "Additive phenotype", "phenotype" = "Phenotype"))
+        labeller=as_labeller(
+          c(
+            "additive_phenotype" = "Additive phenotype", 
+            "phenotype" = "Phenotype (additive + environment)")
+        )
       )
   })
 }
