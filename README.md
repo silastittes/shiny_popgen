@@ -13,11 +13,11 @@ Dependencies
 
 R and RStudio
 
-Additionally, make sure `tidyverse`, `shiny`, `wesanderson`, and `patchwork` packages are installed to ensure all dependencies are available.
+Additionally, make sure `tidyverse`, `shiny`, and `wesanderson` packages are installed to ensure all dependencies are available.
 
 ```r
 #get package names
-pckgs <- c("tidyverse", "shiny", "wesanderson", "patchwork")
+pckgs <- c("tidyverse", "shiny", "wesanderson")
 
 #determine if packages are installed already
 miss <- pckgs[!pckgs %in% installed.packages()]

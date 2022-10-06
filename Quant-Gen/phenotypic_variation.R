@@ -10,7 +10,7 @@
 library(shiny)
 library(ggplot2)
 library(dplyr)
-library(patchwork)
+library(tidyr)
 theme_set(theme_classic(15))
 
 pheno_dist <- function(n_individuals, n_loci, allele_types, v_env) {
@@ -34,7 +34,8 @@ pheno_dist <- function(n_individuals, n_loci, allele_types, v_env) {
     tibble(
       additive_phenotype = additive_phenotype,
       phenotype = phenotype
-    )
+    ) %>% 
+      pivot_longer(cols = everything(), names_to = "trait", values_to = "value")
   )
 }
 
@@ -65,18 +66,17 @@ ui <- fluidPage(pageWithSidebar(
 
 #back end code and response to user input
 server <- function(input, output){
-  
   output$viz <- renderPlot({
     out <- pheno_dist(input$N, input$n, c(input$A, input$a), input$e)
-    p1 <- ggplot(data = out) +
-      geom_histogram(aes(x=additive_phenotype)) +
+    ggplot(data = out) +
+      geom_histogram(aes(x=value)) +
       ylab("Frequency") +
-      xlab("Additive Phenotype")
-    p2 <- ggplot(data = out) +
-      geom_histogram(aes(x=phenotype)) +
-      ylab("Frequency") +
-      xlab("Phenotype")
-    p1 + p2 + plot_layout(ncol = 1)
+      xlab("Phenotype") +
+      facet_wrap(
+        ~trait, ncol = 1, 
+        scales = "free_y",
+        labeller=as_labeller(c("additive_phenotype" = "Additive phenotype", "phenotype" = "Phenotype"))
+      )
   })
 }
 
