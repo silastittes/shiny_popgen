@@ -22,17 +22,17 @@ pheno_dist <- function(n_individuals, n_loci, allele_types, v_env) {
   class_types <- (0:n_alleles) * allele_types[1] + 
                  (n_alleles - (0:n_alleles)) * allele_types[2]
   
-  additive_phenotype <- sample(class_types, size = n_individuals, prob = class_counts, replace = T)
+  additive <- sample(class_types, size = n_individuals, prob = class_counts, replace = T)
   if(length(n_loci) < 1){
     phenotype <- rnorm(n=n_individuals, mean = 0, sd = v_env)
   } else {
-    phenotype <- rnorm(n=n_individuals, mean = additive_phenotype, sd = v_env)  
+    phenotype <- rnorm(n=n_individuals, mean = additive, sd = v_env)  
   }
   
   
   return(
     tibble(
-      additive_phenotype = additive_phenotype,
+      additive = additive,
       phenotype = phenotype
     ) %>% 
       pivot_longer(cols = everything(), names_to = "trait", values_to = "value")
@@ -77,8 +77,8 @@ server <- function(input, output){
         scales = "free_y",
         labeller=as_labeller(
           c(
-            "additive_phenotype" = "Additive phenotype", 
-            "phenotype" = "Phenotype (additive + environment)")
+            "additive" = "Additive genetic value", 
+            "phenotype" = "Phenotype (additive and environment)")
         )
       )
   })
