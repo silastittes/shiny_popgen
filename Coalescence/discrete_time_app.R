@@ -57,7 +57,6 @@ for_sim <- function(n, sample_frac, gen) {
       col = colz,
       cex = 2
     )
-    #abline(h = (gen - c_gen), lty = 2)
     mtext(
       text = (gen - c_gen),
       side = 4,
