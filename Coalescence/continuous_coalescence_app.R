@@ -130,6 +130,7 @@ r_coal <- function(n_pop, theta = 2){
   tree$nodes <- nodes
   tree$tip_order <- tip_order
   tree$n_pop <- n_pop
+  tree$mutations <- rep(0, nrow(tree$topology))
   return(tree)
 }
 
@@ -201,120 +202,96 @@ plot_coal <- function(tree, node = F){
 ###################
 ## add mutations ##
 ###################
-paint_mutants <- function(tree, viz = F, theta = 2){
-  #ne <- 1e8
-  #mu <- 1e-5
-  #theta <- 2
-  #mx_nodes <- length(tree$branch_lengths)
-  #text(1.5, tree$branch_lengths[mx_nodes], 
-  #     eval(bquote(expression(theta ~  "=" ~ .(theta)))))
-  
-  count <- 1
-  buffer <- 10000
-  aln <- matrix(NA, nrow = tree$n_pop, ncol = buffer)
-  rownames(aln) <- 1:tree$n_pop
-  
-  for(c_node in rev(tree$nodes)){
+
+paint_mutations <- function(tree, viz = F, theta = 2){
+  n_nodes <- nrow(tree$topology)
+  for(i in 1:(n_nodes-1)){
+    #parent branch is first column
+    parent_branch <- tree$topology[i, 1]
+    child_branch <- tree$topology[i, 2]
     
-    #[1] on next line only considers on sub-branch
-    c_dots <- tree$topology[tree$topology[,1] == c_node, 2] ###!!!!
-    br <- tree$branch_lengths[c_node] - tree$branch_lengths[c_dots]
+    br <- tree$branch_lengths[parent_branch] - tree$branch_lengths[child_branch]
+    n_muts <- rpois(1, lambda = br)
     
-    n_muts <- rpois(2, lambda = br)
-    #n_muts <- rpois(2, lambda = (theta*br)/2)
+    #tree$topology[tree$topology[,1] == parent_branch, 2]
+    tree$mutations[i] <- tree$mutations[i] + n_muts
     
-    for(k in 1:2){
-      if(n_muts[k] > 0){
+    if(n_muts > 0){
+      if(viz){
         
-        if(viz){
-          points((tree$nod_pos[c_node] + tree$nod_pos[c_dots[1]])/2, 
-                 (tree$branch_lengths[c_node] + tree$branch_lengths[c_dots[1]])/2, 
-                 bg = "black", pch = 22, cex = 1.75)
-          
-          text((tree$nod_pos[c_node] + tree$nod_pos[c_dots[1]])/2, 
-               (tree$branch_lengths[c_node] + tree$branch_lengths[c_dots[1]])/2, 
-               n_muts[k], cex = 1, col = "white")
-        }
-        all_dots <- rep(NA, length(tree$nodes))
-        x <- c_dots[1]
-        j <- 1
-        j2 <- (j+length(x)-1)
-        all_dots[j:j2] <- x
-        j <- j2 + 1
-        while(length(x)){
-          x <- tree$topology[tree$topology[,1] %in% x, 2]  
-          j2 <- (j+length(x)-1)
-          if(length(x)){
-            all_dots[j:j2] <- x
-          }
-          j <- j2 + 1
-        }
+        #midpoint along x and y axis to label mutations on tree
+        mut_pos_x <- (tree$nod_pos[parent_branch] + tree$nod_pos[child_branch])/2
+        mut_pos_y <- (tree$branch_lengths[parent_branch] + tree$branch_lengths[child_branch])/2
         
-        mutated <- all_dots[all_dots <= tree$n_pop]
-        mutations <- rep(0, tree$n_pop)
-        mutations[mutated] <- 1
-        aln[,count:(count+n_muts[k]-1)] <- matrix(rep(mutations, n_muts[k]), 
-                                                  ncol = n_muts[k], byrow = F)
-        count <- count+n_muts[k]
+        points(mut_pos_x, mut_pos_y,bg = "black", pch = 22, cex = 1.75)
+        text(mut_pos_x, mut_pos_y, n_muts, cex = 1, col = "white")
       }
-      
+    }
+  }
+  return(tree)
+}
+
+get_daughters <- function(tree, nodes){
+  tree$topology[tree$topology[,1] %in% nodes, 2]  
+}
+
+collect_daughters <- function(tree, mutation_index){
+  all_daughters <- c()
+  daughters <- tree$topology[mutation_index,2]
+  all_daughters <- c(all_daughters, daughters)
+  while(length(daughters) > 0){
+    if(length(get_daughters(tree, daughters)) > 0){
+      daughters <- get_daughters(tree, daughters)
+      all_daughters <- c(all_daughters, daughters)
+    } else {
+      break
+    }
+  }
+  all_daughters[all_daughters %in% tree$tip_order]
+}
+
+
+make_aln <- function(tree, viz = F){
+  n_mutations <- sum(tree$mutations)
+  #make alignment mutations X tips
+  aln <- matrix(rep(0, n_mutations * tree$n_pop), ncol = tree$n_pop)
+  locus <- 1
+  for(mut_index in seq_along(tree$mutations)){
+    n_mutations <- tree$mutations[mut_index]
+    if(n_mutations > 0){
+      children <- collect_daughters(tree, mut_index)
+      #mutation sites at current row
+      aln[locus:(locus + n_mutations - 1), which(tree$tip_order %in% children)] <- 1
+      #update where along alignment to add more mutations
+      locus <- locus + n_mutations 
     }
   }
   
-  #aln <- matrix(aln, nrow = sum(aln))
-  aln <- aln[,-which(aln %>% apply(MARGIN = 2, function(x){
-    as.logical(sum(is.na(x))/length(x))
-  }))]
+  if(viz){
+    plot_aln(tree, aln)
+  }
   return(aln)
 }
 
+
 plot_aln <- function(tree, aln){
-  if(length(dim(aln)) > 0 ){
-    aln <- aln[tree$tip_order,]  
-  } else {
-    aln <- aln[tree$tip_order]  
-  }
-  
-  if(is.vector(aln)) aln <- matrix(aln)
-  
-  #aln <- t(aln)
-  sz <- dim(aln)
-  #aln[,]
-  
-  marg <- -0.5
-  
-  if(!is.null(sz)){
-    if(sz[2] > 0){
-      #par(mar=c(0, 0, 0, 0))
-      plot(NA, NA, xlim = c(-marg, sz[1]+marg), ylim = c(sz[2], 0),
-           axes = F, xlab = "", ylab = "")
-      
-      for(j in 1:ncol(aln)){
-        for(i in 1:nrow(aln)){
-          rect(xleft = (i-1), ybottom = (j-1), 
-               xright = i, ytop = j, border = F,#, lwd = 4,
-               col = aln[i,j]+8)
-          
-          text(x = (i-1 + i)/2, y = (j-1 + j)/2, round(aln[i,j], 2), cex = 1,
-               col = "white")
-        }
-      }
-    }
+  dimz <- dim(aln)
+  if(min(dimz) >0 ){
+    plot(NA, NA, ylim = c(1, dimz[1]), xlim = c(1, dimz[2]), axes = F, ylab = "", xlab = "")
+    gridz <- expand.grid(dimz[1]:1, 1:dimz[2])
+    points(gridz[,2], gridz[,1],pch = 22, bg = aln)
   }
 }
 
 
-
-
-
 cwd <- 2
-# Define UI for application that draws a histogram
+# Define UI
 ui <- fluidPage(
    
    # Application title
    titlePanel("Continuous time coalescence"),
    
-   # Sidebar with a slider input for number of bins 
+   # Sidebar
    sidebarLayout(
       sidebarPanel(
         
@@ -330,7 +307,6 @@ ui <- fluidPage(
             isolate(checkboxInput(inputId = "tree",
                                   label = strong("Show geneology"), 
                                   value = TRUE)),
-     
  
             isolate(checkboxInput(inputId = "mutations",
                                   label = strong("Show mutations"),
@@ -359,16 +335,14 @@ ui <- fluidPage(
           column(11, align="center",
                  plotOutput("distPlot")
 
-
         )
       )
     )
   )
 
 
-# Define server logic required to draw a histogram
+# Define server logic
 server <- function(input, output) {
-   
   
   #each time user hits "go"
   rand <- eventReactive(input$goButton, {
@@ -378,21 +352,33 @@ server <- function(input, output) {
   })
   
   
-   output$distPlot <- renderPlot({
-     
-     data_out <- rand()
-     
-     par(mfrow=c(2,1))
-     
-     if (input$tree) plot_coal(data_out$tree, node = input$nodes)
-      
-     aln <- paint_mutants(data_out$tree, data_out$theta, viz = input$mutations)
-     
-      if (input$aln) plot_aln(data_out$tree, aln)
-      
-      
-   })
+  output$distPlot <- renderPlot({
+    
+    data_out <- rand()
+    
+    par(mfrow=c(2,1))
+    
+    if (input$tree) plot_coal(data_out$tree, node = input$nodes)
+    
+    data_out$tree <- paint_mutations(data_out$tree, data_out$theta, viz = input$mutations)
+    
+    if (input$aln) make_aln(data_out$tree, viz = TRUE)
+    
+  })
 }
 
 # Run the application 
 shinyApp(ui = ui, server = server)
+
+# n <- 4; theta <- 2;
+# tree = r_coal(n, theta)
+# tree
+# plot_coal(tree)
+# tree <- paint_mutations(tree, viz = TRUE, theta = theta)
+# tree
+# aln <- make_aln(tree, viz = T)
+# dimz <- dim(aln)
+# plot(NA, NA, ylim = c(1, dimz[1]), xlim = c(1, dimz[2]), axes = F, ylab = "", xlab = "")
+# gridz <- expand.grid(dimz[1]:1, 1:dimz[2])
+# points(gridz[,2], gridz[,1],pch = 22, bg = aln)
+# children <- collect_daughters(tree, 7)
